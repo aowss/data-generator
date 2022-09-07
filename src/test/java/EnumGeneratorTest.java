@@ -8,13 +8,13 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @DisplayName("Enum Generator")
-public class EnumGeneratorTest {
+class EnumGeneratorTest {
 
     Generator<String> generator = new EnumGenerator<>(new String[] { "male", "female" });
 
     @Test
     @DisplayName("generates the right number of records")
-    public void count() {
+    void count() {
         var data = generator.generate(2);
         assertThat(data.length, is(2));
     }
@@ -22,7 +22,7 @@ public class EnumGeneratorTest {
 
     @Test
     @DisplayName("picks values evenly from the list")
-    public void values() {
+    void values() {
         var data = generator.generate(5);
         assertThat(data[0], is("male"));
         assertThat(data[2], is("male"));

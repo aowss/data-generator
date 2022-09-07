@@ -11,21 +11,21 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @DisplayName("Function Generator")
-public class FunctionGeneratorTest {
+class FunctionGeneratorTest {
 
     final Random numberGenerator = new Random();
     Generator<Integer> generator = new FunctionGenerator<>(() -> numberGenerator.nextInt());
 
     @Test
     @DisplayName("generates the right number of records")
-    public void count() {
+    void count() {
         var data = generator.generate(2);
         assertThat(data.length, is(2));
     }
 
     @Test
     @DisplayName("generates random values")
-    public void values() {
+    void values() {
         var data = generator.generate(5);
         Set<Integer> distinctValues = Set.of(data);
         //  This assertion is useless since the `Set#of` method will throw an exception in case of duplicates
@@ -33,11 +33,13 @@ public class FunctionGeneratorTest {
     }
 
     @Test
-    @Disabled
+    @Disabled("ensureUniqueness not handled yet")
     @DisplayName("when ensureUniqueness is true values are unique")
-    public void uniqueValues() {
+    void uniqueValues() {
         var data = generator.generate(5_000_000);
         Set<Integer> distinctValues = Set.of(data);
+        //  This assertion is useless since the `Set#of` method will throw an exception in case of duplicates
+        assertThat(distinctValues.size(), is(5_000_000));
     }
 
 }
